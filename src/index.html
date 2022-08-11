@@ -24,58 +24,104 @@
         <tbody data-sink class="tableBody"></tbody>
     </table>
 
-    <div class="pagination">
-         <div class="btn-group">
-            <button data-prevbtn class="prev-button">Previous</button>
-            <button data-nextbtn class="next-button">Next</button>
-            <label data-pageview></label>
-        </div>
-
-        <div>
-            <p>Showing Page <span class="page-number">1</span></p>
-        </div>
+    <div class="btn-group">
+        <button data-prevbtn class="prev-button" aria-label="Previous page">Previous</button>
+        <button data-nextbtn class="next-button" aria-label="Next page">Next</button>
+        <label data-pageview class="page-number"></label>
     </div>
+
 
     <script type="module" src="app.ts"></script>
     <script>
         const tableBodyClass = document.querySelector('.tableBody')
         const previousButton = document.querySelector('.prev-button')
         const nextButton = document.querySelector('.next-button')
+        const pageNumber = document.querySelector('.page-number')
+        const baseUrl = 'https://randomapi.com/api/8csrgnjw?key=LEIX-GF3O-AG7I-6J84'
 
-        const fetchData = async () => {
-            const baseUrl = 'https://randomapi.com/api/8csrgnjw?key=LEIX-GF3O-AG7I-6J84'
-            let page = 1
-            const response = await fetch(`${baseUrl}&page=${page}`)
+        let currentPage = 1
+        const pageSize = 5
+
+        const disableButton = (button) => {
+            button.classList.add("disabled");
+            button.setAttribute("disabled", true);
+        };
+
+        const enableButton = (button) => {
+            button.classList.remove("disabled");
+            button.removeAttribute("disabled");
+        };
+
+        const handlePageButtonsStatus = () => {
+            // debugger
+            if (currentPage === 1) {
+                disableButton(previousButton);
+            } else {
+                enableButton(previousButton);
+            }
+
+            // if (pageCount === currentPage) {
+            //     disableButton(nextButton);
+            // } else {
+            //     enableButton(nextButton);
+            // }
+        };
+
+        const setCurrentPage = (pageNum) => {
+            currentPage = pageNum;
+            handlePageButtonsStatus();
+
+            const prevRange = (pageNum - 1) * pageSize;
+            const currRange = pageNum * pageSize;
+        };
+
+        const fetchData = async (url) => {
+            const response = await fetch(url)
             const data = await response.json();
             const { results } = data
             const [tableData]=  results
+            const nextPage = tableData.paging.next
 
-            const tableRow = tableData['1'].map((item) => {
+           const randomData =  Object.entries(tableData).map(([key, value]) => {
+                if(key !== 'paging') {
+                   return value
+                }
+            })
+            const mergedData = [].concat.apply([], randomData).filter(item => item !== undefined);
+
+            createTable(mergedData)
+
+            const params = new URLSearchParams(tableData.paging.next)
+
+        }
+
+        const createTable = (tableData) => {
+            const tableRow = tableData.map((item) => {
                 return `<tr>
                             <td>${item.row}</td>
                             <td>${item.gender.toUpperCase()}</td>
                             <td>${item.age}</td>
-                        </tr>
-                    `
-            })
+                        </tr>`
+            }).join('')
 
             tableBodyClass.insertAdjacentHTML("afterend", tableRow);
-
-        }
-
-        const handlePrevious = () => {
-            console.log('previous');
-        }
-
-        const handleNext = () => {
-            console.log('next');
+            pageNumber.innerHTML = 'Showing Page 1'
         }
 
 
-        previousButton.addEventListener("click", () => handlePrevious());
-        nextButton.addEventListener("click", () => handleNext());
+        window.addEventListener("load", async () => {
+            fetchData(baseUrl)
+            setCurrentPage(1);
 
-        document.addEventListener('DOMContentLoaded', fetchData, false);
+            previousButton.addEventListener("click", () => {
+                setCurrentPage(currentPage - 1);
+            });
+
+            nextButton.addEventListener("click", () => {
+                setCurrentPage(currentPage + 1);
+            });
+
+        });
 
     </script>
 </body>

@@ -88,8 +88,3 @@ tbody tr:nth-child(even) {
     display: inline-block;
     margin: 0.6em 1em;
 }
-
-.pagination {
-    display: flex;
-    align-items: center;
-}
