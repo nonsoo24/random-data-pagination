@@ -21,42 +21,63 @@
                 <td>Age</td>
             </tr>
         </thead>
-        <tbody data-sink>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
+        <tbody data-sink class="tableBody"></tbody>
     </table>
 
-    <div class="btn-group">
-        <button data-prevbtn>Previous</button>
-        <button data-nextbtn>Next</button>
-        <label data-pageview></label>
+    <div class="pagination">
+         <div class="btn-group">
+            <button data-prevbtn class="prev-button">Previous</button>
+            <button data-nextbtn class="next-button">Next</button>
+            <label data-pageview></label>
+        </div>
+
+        <div>
+            <p>Showing Page <span class="page-number">1</span></p>
+        </div>
     </div>
 
     <script type="module" src="app.ts"></script>
+    <script>
+        const tableBodyClass = document.querySelector('.tableBody')
+        const previousButton = document.querySelector('.prev-button')
+        const nextButton = document.querySelector('.next-button')
+
+        const fetchData = async () => {
+            const baseUrl = 'https://randomapi.com/api/8csrgnjw?key=LEIX-GF3O-AG7I-6J84'
+            let page = 1
+            const response = await fetch(`${baseUrl}&page=${page}`)
+            const data = await response.json();
+            const { results } = data
+            const [tableData]=  results
+
+            const tableRow = tableData['1'].map((item) => {
+                return `<tr>
+                            <td>${item.row}</td>
+                            <td>${item.gender.toUpperCase()}</td>
+                            <td>${item.age}</td>
+                        </tr>
+                    `
+            })
+
+            tableBodyClass.insertAdjacentHTML("afterend", tableRow);
+
+        }
+
+        const handlePrevious = () => {
+            console.log('previous');
+        }
+
+        const handleNext = () => {
+            console.log('next');
+        }
+
+
+        previousButton.addEventListener("click", () => handlePrevious());
+        nextButton.addEventListener("click", () => handleNext());
+
+        document.addEventListener('DOMContentLoaded', fetchData, false);
+
+    </script>
 </body>
 
 </html>
