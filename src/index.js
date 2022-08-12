@@ -21,9 +21,14 @@ const enableButton = (button) => {
 };
 
 const loadTable = async (url) => {
+    tableBodyClass.innerHTML = `<div class="loading">
+    <div class="loading-state">loading ...</div>
+    </div>`;
+    debugger
     const data = await fetchData(url)
     setData(data)
     hasNextPage = 0
+    tableBodyClass.innerHTML = '';
     getNextTableData()
 }
 

@@ -88,3 +88,15 @@ tbody tr:nth-child(even) {
     display: inline-block;
     margin: 0.6em 1em;
 }
+
+.loading-state {
+   height: 50px;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   margin-top: 10px
+}
+
+.tableBody {
+    position: relative;
+}
