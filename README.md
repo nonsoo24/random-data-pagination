@@ -13,3 +13,4 @@ See full details and instructions (including an interesting paging caveat) in th
 1.  This comes as a purely HTML/CSS/JS project with [Parcel](https://parceljs.org/docs/) handling build and transpilation. 
 2.  We strongly recommend you complete the challenge with this setup, and only use a framework (like Vue/react/Angular) only if absolutely necessary and for which you will be required to provide reasonable justification as part of your evaluation
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8b47c0797b304aee9dd9772f43dd859a)](https://www.codacy.com/gh/nonsoo24/random-data-pagination/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nonsoo24/random-data-pagination&amp;utm_campaign=Badge_Grade)

@@ -10,4 +10,8 @@
 
 - If hasNextPage is zero, items of the first page in the results will be displayed using key[0]. If hasNextPage is one, items of the second page in the results will be displayed using key[1]. If hasNextPage is two, it means I will have to fetch a new data.
 
-- The toggleButton disables/enables the previous and next button. If there is a next or previous links it enables the buttons and vice versa 
+- The next button triggers the getNextTableData function which loads the next data on the table. If key exist in the results from the endpoint (e.g 5 or 6. Where key represents the page) it creates the table with the exist data else it goes to fetch a new data
+
+- The next button triggers the getPreviousTableData function which loads the table with the previous data.
+
+- The toggleButton disables/enables the previous and next button. If there is a next or previous links it enables the buttons and vice versa

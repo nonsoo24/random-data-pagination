@@ -67,8 +67,8 @@ const getPreviousTableData = async() => {
         lastKey = key
         createTable(results[key])
     } else {
-        let api = await fetchData(results.paging.previous)
-        setData(api)
+        let data = await fetchData(results.paging.previous)
+        setData(data)
         getNextTableData()
     }
 
