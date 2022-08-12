@@ -102,7 +102,7 @@ const getPreviousKey = () => {
 
 const createTable = (data) => {
     const tableRow = data.map((item) => {
-        return `<tr>
+        return `<tr data-entryid>
                     <td>${item.row}</td>
                     <td>${item.gender.toUpperCase()}</td>
                     <td>${item.age}</td>
