@@ -1,4 +1,4 @@
-const tableBodyClass = document.querySelector('.tableBody')
+const tableBody = document.querySelector('#tableBody')
 const previousButton = document.querySelector('.prev-button')
 const nextButton = document.querySelector('.next-button')
 const pageNumber = document.querySelector('.page-number')
@@ -21,13 +21,13 @@ const enableButton = (button) => {
 };
 
 const loadTable = async (url) => {
-    tableBodyClass.innerHTML = `<div class="loading">
+    tableBody.innerHTML = `<div class="loading">
     <div class="loading-state">loading ...</div>
     </div>`;
     const data = await fetchData(url)
     setData(data)
     hasNextPage = 0
-    tableBodyClass.innerHTML = '';
+    tableBody.innerHTML = '';
     getNextTableData()
 }
 
@@ -108,7 +108,7 @@ const createTable = (data) => {
                 </tr>`
     }).join('')
 
-    tableBodyClass.innerHTML = tableRow;
+    tableBody.innerHTML = tableRow;
     const page = tableData.info?.page
     const showPage = hasNextPage === 1 ? page : hasNextPage === 2 ? Number(page) + 1 : ''
     pageNumber.innerHTML = `Showing Page ${showPage}`
