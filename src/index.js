@@ -1,7 +1,7 @@
 const tableBody = document.querySelector('#tableBody')
-const previousButton = document.querySelector('.prev-button')
-const nextButton = document.querySelector('.next-button')
-const pageNumber = document.querySelector('.page-number')
+const previousButton = document.querySelector('#prev')
+const nextButton = document.querySelector('#next')
+const pageNumber = document.querySelector('#page-view')
 const baseUrl = 'https://randomapi.com/api/8csrgnjw?key=LEIX-GF3O-AG7I-6J84'
 
 let tableData = [] // store all data fetched from endpoint here
